@@ -1,0 +1,17 @@
+{
+    "name": "Jetson 6.1 Cross Compile",
+    "image": "nvcr.io/nvidia/jetpack-linux-aarch64-crosscompile-x86:6.1",
+    "containerEnv": {
+        "XMAKE_ROOT": "y"
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "llvm-vs-code-extensions.vscode-clangd",
+                "ms-vscode.cpptools",
+                "xaver.clang-format"
+            ]
+        }
+    },
+    "postCreateCommand": "apt-get update && apt-get install -y software-properties-common && add-apt-repository -y ppa:xmake-io/xmake && apt-get update && apt-get install -y xmake clangd clang-format && cd /l4t && cat targetfs.tbz2.* > targetfs.tbz2 && tar -I lbzip2 -xf targetfs.tbz2 && mkdir toolchain && tar -C toolchain -xf toolchain.tar.bz2"
+}
